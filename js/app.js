@@ -4,20 +4,20 @@
 
 const cards = document.querySelectorAll('li.card');
 
+function openCard() {
+event.target.classList.toggle('open');
+event.target.classList.toggle('show');
+}
 
 /*
  * reveal and hide cards on click
  */
 
-
 for ( let i = 0; i < cards.length; i++) {
 let thisCrd = cards[i];
 
-thisCrd.addEventListener('click', function() {
-
-thisCrd.classList.toggle('open');
-thisCrd.classList.toggle('show');
-});
+thisCrd.addEventListener('click', openCard);
+};
 
 
 /*
@@ -40,7 +40,7 @@ function shuffle(array) {
     }
 
     return array;
-}};
+};
 
 
 /*
