@@ -1,9 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
-const cards = document.querySelectorAll('li.card');
 const reStartButton = document.querySelector('i.fa.fa-repeat');
+const cardsContainer = document.querySelector('ul.deck');
 
 // reveal and hide cards
 
@@ -24,33 +23,50 @@ openList[1].classList.toggle("match");
 } 
 else {
 
-openList[1].className = 'card';
 openList[0].className = 'card';
+openList[1].className = 'card';
 	}
 }
 
+//add event listener if event target's className is 'card'
 
-// add event listener to each card and call the opeCard function
+cardsContainer.addEventListener('click', function() {
+	if (event.target.className === 'card'){
+	openCard();
 
-for ( let i = 0; i < cards.length; i++) {
-let thisCrd = cards[i];
-
-thisCrd.addEventListener('click', openCard);
-thisCrd.addEventListener('click', function() {
-
-const openList = document.querySelectorAll('.open.show:not(.match)');
+	const openList = document.querySelectorAll('.open.show:not(.match)');
 	
 	if (openList.length === 2) {
 	setTimeout("checkCard()", 1500);
 	}
+}
+})
+
+/*
+//add event listener to each card and call the opeCard function -discarded for performance reasons
+
+for ( let i = 0; i < cards.length; i++) {
+	
+	let thisCrd = cards[i];
+	
+	thisCrd.addEventListener('click', openCard);
+	thisCrd.addEventListener('click', function() {
+
+	const openList = document.querySelectorAll('.open.show:not(.match)');
+	
+	if (openList.length === 2) {
+
+	setTimeout("checkCard()", 1500);
+
+	}
 })
 }
+*/
 
-// how do I trigger the checkCard function after two clicks or when the openList.length===2
+reStartButton.addEventListener('click', function() {
+	console.log('The click works')
+});
 
-/*if (openList.length === 2) {
-	checkCard(openList);
-}*/
 
 /*
  * Display the cards on the page
@@ -74,9 +90,6 @@ const openList = document.querySelectorAll('.open.show:not(.match)');
     return array;
 }; */
 
-reStartButton.addEventListener('click', function() {
-	console.log('The click works')
-});
 
 /*
  * set up the event listener for a card. If a card is clicked:
