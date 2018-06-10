@@ -28,19 +28,53 @@ openList[1].className = 'card';
 	}
 }
 
-//add event listener if event target's className is 'card'
+//remove event listeners using a clone nod and then adding them back again
+
+function removeEvListener() {
+	const cardsContainerTwo = document.querySelector('ul.deck');
+    const clone = cardsContainerTwo.cloneNode(true);
+    cardsContainerTwo.parentNode.replaceChild(clone, cardsContainerTwo);
+    setTimeout(function() {clone.parentNode.replaceChild(cardsContainerTwo, clone); }, 1500);
+}
+
+// counting the number of clicks a user made on an elements with '.card.open.show' class name
+
+function clickCount() {
+//	const counter = document.querySelector('span.moves');
+
+	cardsContainer.addEventListener('click', function() {
+
+	let click = 0;
+		
+	if (event.target.className === "card open show") {
+
+	click += 1;
+	console.log(click);
+
+}}
+)
+}
+
+
+//add event listener if event target's className is 'card', open card if clicked, evaluate cards if two are open
 
 cardsContainer.addEventListener('click', function() {
+
 	if (event.target.className === 'card'){
+
 	openCard();
 
 	const openList = document.querySelectorAll('.open.show:not(.match)');
-	
+
 	if (openList.length === 2) {
+		removeEvListener();
 	setTimeout("checkCard()", 1500);
 	}
 }
 })
+
+cardsContainer.addEventListener('click', clickCount());
+
 
 /*
 //add event listener to each card and call the opeCard function -discarded for performance reasons
@@ -63,10 +97,6 @@ for ( let i = 0; i < cards.length; i++) {
 }
 */
 
-reStartButton.addEventListener('click', function() {
-	console.log('The click works')
-});
-
 
 /*
  * Display the cards on the page
@@ -77,7 +107,7 @@ reStartButton.addEventListener('click', function() {
 // Shuffle function from http://stackoverflow.com/a/2450976
 /*function shuffle(cards) {
 
-    var currentIndex = cards.length, temporaryValue, randomIndex;
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
