@@ -1,8 +1,31 @@
 /*
  * Create a list that holds all of your cards
  */
+
+ const icons = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-leaf", 
+"fa fa-bomb", "fa fa-bicycle", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", 
+"fa fa-leaf", "fa fa-bomb", "fa fa-bicycle"];
+
 const reStartButton = document.querySelector('i.fa.fa-repeat');
 const cardsContainer = document.querySelector('ul.deck');
+const counter = document.querySelector('span.moves'); 
+
+
+let cardList = document.querySelectorAll('li.card');
+
+shuffle(icons);
+
+// create deck
+
+for (let i = 0; i < icons.length; i++) {
+	
+	const card = document.createElement('li');
+	card.classList.add('card');
+	card.innerHTML = "<i class ='"+ icons[i] +"'></i>"
+	cardsContainer.appendChild(card);
+
+}
+
 
 // reveal and hide cards
 
@@ -31,30 +54,66 @@ openList[1].className = 'card';
 //remove event listeners using a clone nod and then adding them back again
 
 function removeEvListener() {
+
 	const cardsContainerTwo = document.querySelector('ul.deck');
+    
     const clone = cardsContainerTwo.cloneNode(true);
+    
     cardsContainerTwo.parentNode.replaceChild(clone, cardsContainerTwo);
+    
     setTimeout(function() {clone.parentNode.replaceChild(cardsContainerTwo, clone); }, 1500);
 }
 
-// counting the number of clicks a user made on an elements with '.card.open.show' class name
+// counting the number of clicks a user made on an elements with '.card.open.show' class name and displays it BUG:increments if only one open card is clicked
 
 function clickCount() {
-//	const counter = document.querySelector('span.moves');
+	let rating = document.querySelector('ul.stars')
+	let click = 0;
 
 	cardsContainer.addEventListener('click', function() {
 
-	let click = 0;
-		
 	if (event.target.className === "card open show") {
-
-	click += 1;
-	console.log(click);
-
-}}
+	click++;
+	counter.innerHTML = click;
+}
+if (click > 22 && click < 40) {
+	rating.innerHTML = ('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>');
+}
+else if (click > 40) {
+	rating.innerHTML = ('<li><i class="fa fa-star"></i></li>');
+}
+}
 )
 }
 
+// timer function displays elapsed time since first click in seconds
+
+function increaseTime() {
+
+
+	const timer = document.querySelector('div.timer');
+	let seconds = 0;
+
+	let addSec = setInterval(increaseSeconds, 1000);
+
+	function increaseSeconds() {
+		seconds += 1;
+		let matchedCards = document.querySelectorAll('li.card.open.show.match');
+
+	if (matchedCards.length === 16) {
+		clearInterval(addSec);
+	}
+
+		timer.innerHTML = 'Time elapsed: ' + seconds +' sec';
+	}
+}
+
+//function to notify user that he/she has won
+
+function congrats() {
+
+		console.log("yeah");
+	}
 
 //add event listener if event target's className is 'card', open card if clicked, evaluate cards if two are open
 
@@ -67,17 +126,28 @@ cardsContainer.addEventListener('click', function() {
 	const openList = document.querySelectorAll('.open.show:not(.match)');
 
 	if (openList.length === 2) {
-		removeEvListener();
-	setTimeout("checkCard()", 1500);
+	removeEvListener();
+	setTimeout(checkCard, 1500);
 	}
 }
 })
 
 cardsContainer.addEventListener('click', clickCount());
 
+cardsContainer.addEventListener('click', function() {
+	if (counter.innerHTML === "1") {
+		increaseTime();
+	}
+})
+
+
+//restart game
+reStartButton.addEventListener('click', function() {
+	location.reload();
+});
 
 /*
-//add event listener to each card and call the opeCard function -discarded for performance reasons
+//add event listener to each card and call the opeCard function - discarded for performance reasons on my mentor's advice
 
 for ( let i = 0; i < cards.length; i++) {
 	
@@ -97,15 +167,8 @@ for ( let i = 0; i < cards.length; i++) {
 }
 */
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
-/*function shuffle(cards) {
+function shuffle(array) {
 
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -118,16 +181,29 @@ for ( let i = 0; i < cards.length; i++) {
     }
 
     return array;
-}; */
+};
 
+function setBoard () {
+	location.reload();
+	 document.addEventListener("DOMContentLoaded", shuffle(icons));
+}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  ######display the card's symbol (put this functionality in another function that you call from this one)#######
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function removeIcons() {
+
+	let newList = shuffle(icons);
+	
+//	let cardList = document.querySelectorAll('li.card');
+
+	for ( let i = 0; i < cardList.length; i++) {
+	
+	let thisCrd = cardList[i];
+
+	thisCrd.innerHTML = "<i></i>";
+
+}
+/*		for ( let x = 0; x < newList.length; x++) {
+	
+		let thisElem = newList[x];
+
+}*/
+}
