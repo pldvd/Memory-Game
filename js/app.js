@@ -6,16 +6,20 @@
 "fa fa-bomb", "fa fa-bicycle", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", 
 "fa fa-leaf", "fa fa-bomb", "fa fa-bicycle"];
 
+//I declared the following variables globally to avoid repetition
+
 const reStartButton = document.querySelector('i.fa.fa-repeat');
 const cardsContainer = document.querySelector('ul.deck');
 const counter = document.querySelector('span.moves'); 
+const timer = document.querySelector('span.timer-count');
+const cardList = document.querySelectorAll('li.card');
 
 
-let cardList = document.querySelectorAll('li.card');
+//first thing is to shuffle the deck, the function is declared later. Is this ok?
 
 shuffle(icons);
 
-// create deck
+// create deck : the already shuffled icons are added to each card
 
 for (let i = 0; i < icons.length; i++) {
 	
@@ -51,7 +55,7 @@ openList[1].className = 'card';
 	}
 }
 
-//remove event listeners using a clone nod and then adding them back again
+//remove event listeners using a clone node and then adding them back again
 
 function removeEvListener() {
 
@@ -86,12 +90,10 @@ else if (click > 40) {
 )
 }
 
-// timer function displays elapsed time since first click in seconds
+// timer function displays elapsed time since first click in seconds, if all cards are matched then the timer stops, congrats window appears
 
 function increaseTime() {
 
-
-	const timer = document.querySelector('div.timer');
 	let seconds = 0;
 
 	let addSec = setInterval(increaseSeconds, 1000);
@@ -102,9 +104,9 @@ function increaseTime() {
 
 	if (matchedCards.length === 16) {
 		clearInterval(addSec);
+		congrats();
 	}
-
-		timer.innerHTML = 'Time elapsed: ' + seconds +' sec';
+		timer.innerHTML = seconds;
 	}
 }
 
@@ -112,7 +114,29 @@ function increaseTime() {
 
 function congrats() {
 
-		console.log("yeah");
+		let popup = document.querySelector('.popup')
+
+		popup.style.display = "block";
+
+		let closeButton = document.querySelector('i.fa.fa-times');
+
+		closeButton.addEventListener('click', function() {
+			popup.style.display = "none";
+		});
+
+		let message = document.querySelector('.popup-message');
+
+		let time = timer.innerText;
+
+		let stars = document.querySelectorAll('i.fa.fa-star');
+
+		message.innerHTML = " <p>You have finished the game in " + time + " seconds. Your have earned "+ stars.length + " stars. Click <span class = 'play-again'>HERE</span> to play again.</p>" ;
+
+		let play = document.querySelector('.play-again');
+
+		play.addEventListener('click', function() {
+			location.reload()})
+
 	}
 
 //add event listener if event target's className is 'card', open card if clicked, evaluate cards if two are open
@@ -125,6 +149,8 @@ cardsContainer.addEventListener('click', function() {
 
 	const openList = document.querySelectorAll('.open.show:not(.match)');
 
+//check symbols when two cards are open
+
 	if (openList.length === 2) {
 	removeEvListener();
 	setTimeout(checkCard, 1500);
@@ -134,6 +160,8 @@ cardsContainer.addEventListener('click', function() {
 
 cardsContainer.addEventListener('click', clickCount());
 
+//start measuring the time only when the player has started the game
+
 cardsContainer.addEventListener('click', function() {
 	if (counter.innerHTML === "1") {
 		increaseTime();
@@ -142,32 +170,13 @@ cardsContainer.addEventListener('click', function() {
 
 
 //restart game
+
 reStartButton.addEventListener('click', function() {
 	location.reload();
 });
 
-/*
-//add event listener to each card and call the opeCard function - discarded for performance reasons on my mentor's advice
-
-for ( let i = 0; i < cards.length; i++) {
-	
-	let thisCrd = cards[i];
-	
-	thisCrd.addEventListener('click', openCard);
-	thisCrd.addEventListener('click', function() {
-
-	const openList = document.querySelectorAll('.open.show:not(.match)');
-	
-	if (openList.length === 2) {
-
-	setTimeout("checkCard()", 1500);
-
-	}
-})
-}
-*/
-
 // Shuffle function from http://stackoverflow.com/a/2450976
+
 function shuffle(array) {
 
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -183,10 +192,8 @@ function shuffle(array) {
     return array;
 };
 
-function setBoard () {
-	location.reload();
-	 document.addEventListener("DOMContentLoaded", shuffle(icons));
-}
+
+// removes icons from the cards
 
 function removeIcons() {
 
@@ -200,10 +207,4 @@ function removeIcons() {
 
 	thisCrd.innerHTML = "<i></i>";
 
-}
-/*		for ( let x = 0; x < newList.length; x++) {
-	
-		let thisElem = newList[x];
-
-}*/
-}
+}}

@@ -18,3 +18,8 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Known Bugs
+
+When there is only one card open, the user can keep clicking on in at end the step count keeps incrementing. 
+This is to be fixed in the future.
