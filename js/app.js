@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all the cards
- */
+
 
 const icons = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-leaf", "fa fa-bomb", "fa fa-bicycle", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
 "fa fa-leaf", "fa fa-bomb", "fa fa-bicycle"];
@@ -10,20 +8,18 @@ const counter = document.querySelector('span.moves');
 const timer = document.querySelector('span.timer-count');
 const cardList = document.querySelectorAll('li.card');
 
+//create deck with an IIFE, call shuffle on the icons array
 
-//first thing is to shuffle the deck, the function is declared later. Is this ok?
-
-shuffle(icons);
-
-// create deck : the already shuffled icons are added to each card
-
-for (let i = 0; i < icons.length; i++) {
-	const card = document.createElement('li');
-
-	card.classList.add('card');
-	card.innerHTML = "<i class ='" + icons[i] + "'></i>";
-	cardsContainer.appendChild(card);
-}
+(function createDeck() {
+	shuffle(icons);
+	for (let i = 0; i < icons.length; i++) {
+		const card = document.createElement('li');
+	
+		card.classList.add('card');
+		card.innerHTML = "<i class ='" + icons[i] + "'></i>";
+		cardsContainer.appendChild(card);
+	}
+})()
 
 
 // reveal and hide cards
@@ -49,7 +45,7 @@ function checkCard() {
 	}
 }
 
-//remove event listeners using a clone node and then adding them back again
+//remove event listeners using a clone node and then adding them back again for the time when cards are checked
 
 function removeEvListener() {
 	const cardsContainerTwo = document.querySelector('ul.deck');
@@ -71,7 +67,6 @@ function clickCount() {
 	cardsContainer.addEventListener('click', function () {
 
 		if (event.target.className === "card open show") {
-	
 			click++;
 			counter.innerHTML = click;
 		}
@@ -189,17 +184,17 @@ function shuffle(array) {
 
 // removes icons from the cards
 
-function removeIcons() {
+// function removeIcons() {
 
-	let newList = shuffle(icons);
+// 	let newList = shuffle(icons);
 
-	//	let cardList = document.querySelectorAll('li.card');
+// 	//	let cardList = document.querySelectorAll('li.card');
 
-	for (let i = 0; i < cardList.length; i++) {
+// 	for (let i = 0; i < cardList.length; i++) {
 
-		let thisCrd = cardList[i];
+// 		let thisCrd = cardList[i];
 
-		thisCrd.innerHTML = "<i></i>";
+// 		thisCrd.innerHTML = "<i></i>";
 
-	}
-}
+// 	}
+// }
