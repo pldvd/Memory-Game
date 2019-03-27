@@ -1,25 +1,10 @@
 # Memory Game Project
 
-## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Introduction
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+This was one of the projects in the Udacity Front End Web Devloper course. We received an initial starter project with some HTML and CSS styling to display a static version of the Memory Game. Our task was to convert this from a static project to an interactive one, by both modifying the HTML and CSS and writing the JavaScript. 
 
 ### Known Bugs
 
-When there is only one card open, the user can keep clicking on in at end the step count keeps incrementing. 
-This is to be fixed in the future.
+FIXED: when there is only one card open, the user can keep clicking on it and the step count keeps incrementing.
