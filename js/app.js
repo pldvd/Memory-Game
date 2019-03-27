@@ -180,21 +180,3 @@ function shuffle(array) {
 
 	return array;
 };
-
-
-// removes icons from the cards
-
-// function removeIcons() {
-
-// 	let newList = shuffle(icons);
-
-// 	//	let cardList = document.querySelectorAll('li.card');
-
-// 	for (let i = 0; i < cardList.length; i++) {
-
-// 		let thisCrd = cardList[i];
-
-// 		thisCrd.innerHTML = "<i></i>";
-
-// 	}
-// }
